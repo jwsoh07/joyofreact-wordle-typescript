@@ -22,7 +22,7 @@ export default function GuessInput({ newGuess, onGuessChange, handleNewGuess }: 
         minLength={5}
         maxLength={5}
         value={newGuess}
-        onChange={(e) => onGuessChange(e.target.value)}
+        onChange={(e) => onGuessChange(e.target.value.toUpperCase())}
       />
     </form>
   );
