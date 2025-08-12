@@ -4,8 +4,9 @@
  */
 
 import type { Word } from "./data";
+import type { GuessResult, LetterStatus } from "./types";
 
-export function checkGuess(guess: Word, answer: Word) {
+export function checkGuess(guess: Word, answer: Word): GuessResult {
   // This constant is a placeholder that indicates we've successfully
   // dealt with this character (it's correct, or misplaced).
   const SOLVED_CHAR = '✓';
@@ -14,7 +15,7 @@ export function checkGuess(guess: Word, answer: Word) {
   const guessChars = guess.toUpperCase().split('');
   const answerChars = answer.split('');
 
-  const result = [];
+  const result: GuessResult = [];
 
   // Step 1: Look for correct letters.
   for (let i = 0; i < guessChars.length; i++) {
@@ -35,7 +36,7 @@ export function checkGuess(guess: Word, answer: Word) {
       continue;
     }
 
-    let status = 'incorrect';
+    let status: LetterStatus = 'incorrect';
     const misplacedIndex = answerChars.findIndex(
       (char) => char === guessChars[i]
     );
