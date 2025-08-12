@@ -1,5 +1,6 @@
 import { AnswerContext } from "../../context/Contexts";
 import { type Word } from "../../data";
+import Banner from "./Banner";
 import GuessInput from "./GuessInput";
 import GuessResults from "./GuessResults";
 import { useContext, useState } from "react";
@@ -27,25 +28,26 @@ export default function Game() {
 
   return (
     <>
-      {hasWon && <div className="happy banner">
-      <p>
-        <strong>Congratulations!</strong> {" "}
-         Got it in {" "}
-        <strong>
-          {guesses.length} guess{guesses.length === 1 ? '' : 'es'}
-        </strong>.
-      </p>
-      </div>}
-
-      {hasLost && <div className="sad banner">
-      <p>
-        Sorry, the correct answer was <strong>{answer}</strong>.
-      </p>
-    </div>}
-
-        <GuessResults guesses={guesses} />
-
+      <GuessResults guesses={guesses} />
       <GuessInput newGuess={newGuess} onGuessChange={handleGuessChange} handleNewGuess={handleNewGuess} />
+
+      {hasWon && (
+        <Banner type="happy">
+          <strong>Congratulations!</strong> 
+            {" "} Got it in {" "}
+          <strong>
+            {guesses.length} guess{guesses.length === 1 ? '' : 'es'}
+          </strong>.
+          <button className="restart-btn">Play Again</button>
+        </Banner>
+      )}
+
+      {hasLost && (
+        <Banner type="sad">
+          <strong>Sorry, the correct answer was <strong>{answer}</strong>.</strong>
+          <button className="restart-btn">Play Again</button>
+        </Banner>
+      )}
     </>
   );
 }
