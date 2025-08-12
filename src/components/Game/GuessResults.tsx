@@ -35,7 +35,7 @@ function EmptyCells() {
 }
 
 function WordInCells({ word }: { word: Word }) {  
-  const answer = useContext(AnswerContext);
+  const { answer } = useContext(AnswerContext);
   const result = checkGuess(word, answer);
 
   return (

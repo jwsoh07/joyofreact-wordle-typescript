@@ -1,3 +1,4 @@
+import AnswerProvider from "../../context/Providers"
 import Game from "../Game/Game"
 import Header from "../Header/Header"
 
@@ -8,7 +9,9 @@ function App() {
       <Header />
 
       <div className="game-wrapper">
-        <Game />
+        <AnswerProvider>
+          <Game />
+        </AnswerProvider>
       </div>
     </div>
   )
