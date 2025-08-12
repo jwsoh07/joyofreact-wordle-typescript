@@ -21,7 +21,14 @@ export default function Game() {
         } 
     };
 
-    const answer = useContext(AnswerContext);
+    const { answer, resetAnswer } = useContext(AnswerContext);
+
+    const handleRestart = () => {
+        setGuesses([]);
+        setNewGuess("");
+        resetAnswer();
+  };
+
 
     const hasWon = guesses.length <= 6 && guesses.includes(answer);
     const hasLost = guesses.length >= 6 && !hasWon;
@@ -38,14 +45,14 @@ export default function Game() {
           <strong>
             {guesses.length} guess{guesses.length === 1 ? '' : 'es'}
           </strong>.
-          <button className="restart-btn">Play Again</button>
+          <button onClick={handleRestart} className="restart-btn">Play Again</button>
         </Banner>
       )}
 
       {hasLost && (
         <Banner type="sad">
           <strong>Sorry, the correct answer was <strong>{answer}</strong>.</strong>
-          <button className="restart-btn">Play Again</button>
+          <button onClick={handleRestart} className="restart-btn">Play Again</button>
         </Banner>
       )}
     </>

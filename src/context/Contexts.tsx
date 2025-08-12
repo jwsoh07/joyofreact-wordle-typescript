@@ -2,5 +2,11 @@ import { createContext } from "react";
 import { WORDS } from "../data";
 import { sample } from "../utils";
 
-export const AnswerContext = createContext(sample(WORDS));
+type AnswerContextType = {
+  answer: string;
+  resetAnswer: () => void;
+}
+
+export const AnswerContext = createContext<AnswerContextType>({answer: sample(WORDS), resetAnswer: () => {}});
+
 
