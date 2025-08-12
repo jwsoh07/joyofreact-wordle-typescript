@@ -230,3 +230,10 @@ h1 {
     transform: translateY(0%);
   }
 }
+
+.restart-btn {
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin-left: 15px;
+}
