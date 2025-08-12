@@ -8,7 +8,7 @@ interface CellProps {
   status?: 'correct' | 'misplaced' | 'incorrect';
 }
 
-interface GuessProps {
+interface GuessResultProps {
   word: Word;
 } 
 
@@ -18,7 +18,7 @@ interface GuessResultsProps {
 
 function Cell ({ letter, status }: CellProps) {
   const className = "cell" + (status ? ` ${status}` : '');
-  
+
   return (
     <span className={className}>{letter}</span>
   );
@@ -42,7 +42,7 @@ function WordInCells({ word }: { word: Word }) {
   );
 }
 
-function Guess( { word }: GuessProps) {
+function GuessResult( { word }: GuessResultProps) {
   return word ? <WordInCells word={word} /> : <EmptyCells />;
 }
 
@@ -50,7 +50,7 @@ export default function GuessResults({ guesses }: GuessResultsProps) {
   return (
       <div className="guess-results">
         {range(0, NUM_OF_GUESSES_ALLOWED).map((index) => (
-          <Guess key={index} word={guesses[index]} />
+          <GuessResult key={index} word={guesses[index]} />
         ))}
       </div>
   );
