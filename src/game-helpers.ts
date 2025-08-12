@@ -10,9 +10,6 @@ export function checkGuess(guess: Word, answer: Word) {
   // dealt with this character (it's correct, or misplaced).
   const SOLVED_CHAR = '✓';
 
-  if (!guess) {
-    return null;
-  }
 
   const guessChars = guess.toUpperCase().split('');
   const answerChars = answer.split('');
