@@ -2,7 +2,7 @@ import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 import type { Word } from "../../data";
 import { range } from "../../utils";
 
-interface LetterProps {
+interface CellProps {
   letter: string;
 }
 
@@ -14,19 +14,30 @@ interface GuessResultsProps {
   guesses: Word[];
 }
 
-function Letter ({ letter }: LetterProps) {
+function Cell ({ letter }: CellProps) {
   return (
     <span className="cell">{letter}</span>
   );
 } 
 
-function Guess( { word }: GuessProps) {
-  const renderedWord = word || "     ";
+function EmptyCells() {
+    return (
+      <p className="guess">
+        {range(0, 5).map((index) => <Cell key={index} letter=" " />)}
+      </p>
+    );
+}
+
+function WordInCells({ word }: { word: Word }) {
   return (
     <p className="guess">
-      {renderedWord.split("").map((letter, index) => <Letter key={index} letter={letter} />)}
+      {word.split("").map((letter, index) => <Cell key={index} letter={letter} />)}
     </p>
   );
+}
+
+function Guess( { word }: GuessProps) {
+  return word ? <WordInCells word={word} /> : <EmptyCells />;
 }
 
 export default function GuessResults({ guesses }: GuessResultsProps) {
