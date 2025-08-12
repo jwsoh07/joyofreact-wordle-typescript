@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 import type { Word } from "../../data";
 import { checkGuess } from "../../game-helpers";
 import { range } from "../../utils";
+import { AnswerContext } from "../../context/Contexts";
 
 interface CellProps {
   letter: string;
@@ -33,7 +35,8 @@ function EmptyCells() {
 }
 
 function WordInCells({ word }: { word: Word }) {  
-  const result = checkGuess(word, 'LEARN');
+  const answer = useContext(AnswerContext);
+  const result = checkGuess(word, answer);
 
   return (
     <p className="guess">
