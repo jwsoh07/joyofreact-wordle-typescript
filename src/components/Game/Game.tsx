@@ -1,13 +1,9 @@
-import { sample } from "../../utils";
-import { WORDS, type Word } from "../../data";
+import { AnswerContext } from "../../context/Contexts";
+import { type Word } from "../../data";
 import GuessInput from "./GuessInput";
 import GuessResults from "./GuessResults";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
-// Pick a random word on every pageload.
-const answer = sample(WORDS);
-// To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
 
 export default function Game() {
     const [newGuess, setNewGuess] = useState<Word>("");
@@ -24,9 +20,31 @@ export default function Game() {
         } 
     };
 
+    const answer = useContext(AnswerContext);
+
+    const hasWon = guesses.length <= 6 && guesses.includes(answer);
+    const hasLost = guesses.length >= 6 && !hasWon;
+
   return (
     <>
-      <GuessResults guesses={guesses} />
+      {hasWon && <div className="happy banner">
+      <p>
+        <strong>Congratulations!</strong> {" "}
+         Got it in {" "}
+        <strong>
+          {guesses.length} guess{guesses.length === 1 ? '' : 'es'}
+        </strong>.
+      </p>
+      </div>}
+
+      {hasLost && <div className="sad banner">
+      <p>
+        Sorry, the correct answer was <strong>{answer}</strong>.
+      </p>
+    </div>}
+
+        <GuessResults guesses={guesses} />
+
       <GuessInput newGuess={newGuess} onGuessChange={handleGuessChange} handleNewGuess={handleNewGuess} />
     </>
   );
